@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>Turn-Based Battle Game</h2>
+        <h1>THE ZONE</h1>
+        <h3>Rules and Regulations:</h3>
+        <list> 
+            <ol>-The game starts by either the player or the enemy goes first. This is decided through a 
+                a coinflip.
+            </ol>
+            <ol>
+                -Whoever wins the coinflip deals damage to the opposing side first whilst the side that 
+                recieves the damage cannot deal damage back for the meantime.
+            <ol>
+                -There are potions you can use while playing:
+                <list>
+                    <ol>
+                        Healing Potion: Adds 30+ health to your current health. Max health of 100. Can be 
+                        Used 3x. Can be used both by the enemy and the player.
+                    </ol>
+                    <ol>
+                        Immunity Potion: Become immune to the next attack by the enemy. Can be used 2x. Can only be used
+                        by the player.
+                    </ol>
+                    <ol>
+                        Strength Potion: Next Attack deals 2x damage. Can only be used once. Can only be used by the player.
+                    </ol>
+                </list>
+            </ol>
+            <ol>
+                -Damage dealt both by the player and the enemy ranges for 2 - 10.
+            </ol>
+            <ol>
+                -The enemy has a 10% chance to deal critical damage to the player.
+            </ol>
+            <ol>
+                -Attacks that are blocked only deal 2 - 3 damage.
+            </ol>
+            <ol>
+                -If both parties decided to block, no damage will be inflicted on both sides.
+            </ol>
+            <ol>
+                -The game ends when either the player's health or the enemy's health hit zero
+            </ol>
+        </list>
+        <h1>ENJOY</h1>
+        <h3>Coin Flip:</h3>
+        <form>
+            <label for="coin">Coin Flip:</label>
+            <select id="coin" onchange="flipFunction()">
+                <option value="">select</option>
+                <option value="heads">HEADS</option>
+                <option value="tails">TAILS</option>
+            </select>
+        </form>
+        <script>
+            function flipFunction(){
+                var x=document.getElementById("coin").value;
+                var y=Math.random();
+                if(x=="heads" && y >= 0.50){
+                    window.location.href = "Player Vs. Ai Game Player vers.html";
+                }
+                else if(x=="heads" && y < 0.50){
+                    window.location.href = "Player Vs. Ai Game Enemy vers.html";
+                }
+                else if(x=="tails" && y >= 0.50){
+                    window.location.href = "Player Vs. Ai Game Enemy vers.html";
+                }
+                else if(x=="tails" && y < 0.50){
+                    window.location.href = "Player Vs. Ai Game Player vers.html";
+                }
+                else{
+                    alert("Select an option first")
+                }
+            }
+        </script>
+    </body>
+</html>

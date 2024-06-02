@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background-color: lightseagreen;
+            }
+
+            span {
+                background-color:yellow;
+                margin: 10px;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Battle Based Game</h2>
+        <h1>     THE ZONE    </h1>
+        <div>
+            <button onclick="decisionL(1)"> Attack The Enemy</button>
+            <button onclick="decisionL(2)"> Defend Against The Enemy</button>
+        </div>
+        <h4>The Player's Health is: </h4>
+        <h3 id="player">100</h3>
+        <button onclick="AddHealth()">Use Healing Potion </button><br>        
+        <button onclick="UseImmunity()">Use Immunity Potion </button><br>
+        <button onclick="UseStrength()">Use Strength Potion </button>
+        <h4>The Enemy's Health is: </h4>
+        <h3 id="enemy">100</h3>
+        <h2>BATTLE LOG:</h2>
+        <h4 id="PlayerBattleDecision"></h4>
+        <h4 id="EnemyBattleDecision"></h4>
+      
+
+        <script>
+            var Playerhealth;
+            var Health=100;
+            var Health2=100;
+            var Enemyhealth;
+            var Playerturn;
+            var tempHealth;
+            var tempHealth1;
+            var PlayerHealthPotions = 3;
+            var EnemyHealthPotions = 3;
+            var PlayerImmunityPotions = 2;
+            var PlayerStrengthPotion=1;
+            var StrengthUsed;
+            var ImmunityUsed;
+            function UseStrength(){
+                StrengthUsed=1;
+                alert("Player has used a strength potion");
+            }
+            function UseImmunity(){
+                if(PlayerImmunityPotions == 0){
+                    alert("You have no Immunity Potion Left");
+                }
+                else{
+                    ImmunityUsed=1;
+                    alert("You have used an Immunity Potion!");
+                }
+            }
+            var FirstAttack=(Math.floor(Math.random()*(10 - 2 + 1)) + 2);
+            alert("The Player Striked First!");
+            Enemyhealth = Health2 - FirstAttack;
+            document.getElementById("enemy").innerHTML=Enemyhealth;
+            Health2 = Enemyhealth;
+            function decisionL(L) {
+                if(Health > 0 || Health2 > 0){
+                    Playerturn=L;
+                    enemyL();
+                    function enemyL(){
+                    var Enemyturn=Math.random();
+                    if(Enemyturn < 0.50) {
+                        if(Playerturn == 1 ){
+                            var EnemyCrit=Math.random();
+                            if(StrengthUsed == 1) {
+                            var Damage2=2*(Math.floor(Math.random()*(10 - 2 + 1)) + 2);
+                            StrengthUsed--;
+                            document.getElementById("player").innerHTML=Playerhealth;
+                            }
+                            else{
+                                var Damage2=(Math.floor(Math.random()*(10 - 2 + 1)) + 2);
+                            }
+                            if(ImmunityUsed == 1){
+                                var Damage1=0;
+                                ImmunityUsed--;
+                            }
+                            else{
+                               if(EnemyCrit <= 0.1){
+                                var Damage1=2 * (Math.floor(Math.random()*(10 - 2 + 1)) + 2);
+                               }
+                               else{
+                                var Damage1=(Math.floor(Math.random()*(10 - 2 + 1)) + 2);
+                               }
+                            }
+                            Playerhealth=Health - Damage1;
+                            Enemyhealth=Health2 - Damage2;
+                            document.getElementById("player").innerHTML=Playerhealth;
+                            document.getElementById("enemy").innerHTML=Enemyhealth;
+                            document.getElementById("PlayerBattleDecision").innerHTML=
+                            "Player Chose to Attack and Inflicted " + Damage2 + " Damage";
+                            if(EnemyCrit <= 0.1){
+                                alert("Enemy Dealt Critical Damage");
+                                document.getElementById("EnemyBattleDecision").innerHTML=
+                                "Enemy Chose to Attack and Inflicted " + Damage1 + " Critical Damage";
+                            }
+                            else{
+                                document.getElementById("EnemyBattleDecision").innerHTML=
+                                "Enemy Chose to Attack and Inflicted " + Damage1 + " Damage";
+                            }
+                            Health=Playerhealth;
+                            Health2=Enemyhealth;
+                            if (Health2 < 31 ){
+                                if(EnemyHealthPotions > 0){
+                                Enemyhealth = Health2 + 30;
+                                document.getElementById("enemy").innerHTML=Enemyhealth;
+                                alert("Enemy Has Used a Health Potion!");
+                                Health2 = Enemyhealth;
+                                EnemyHealthPotions--;
+                                }
+                            }
+                            if (Health < 1 ){
+                                document.getElementById("player").innerHTML=0;
+                                alert("You Have Been Beaten! Better Luck Next Time!");
+                            }
+                            if (Health2 < 1 ){
+                                document.getElementById("enemy").innerHTML=0;
+                                alert("You Defeated Your Enemy! Congratulations!");
+                            }
+                        }
+                        else {
+                            var Damage3=(Math.floor(Math.random()*(3 - 2 + 1) ) + 2);
+                            Playerhealth=Health - Damage3;
+                            document.getElementById("player").innerHTML=Playerhealth;
+                            document.getElementById("PlayerBattleDecision").innerHTML=
+                            "Player Chose to Block and Inflicted 0 Damage";
+                            if(EnemyCrit <= 0.1){
+                                alert("Enemy Dealt Critical Damage");
+                                document.getElementById("EnemyBattleDecision").innerHTML=
+                                "Enemy Chose to Attack and Inflicted " + Damage3 + " Critical Damage";
+                            }
+                            else{
+                                document.getElementById("EnemyBattleDecision").innerHTML=
+                                "Enemy Chose to Attack and Inflicted " + Damage3 + " Damage";
+                            }
+                            Health2=Enemyhealth;
+                            if (Health2 < 31 ){
+                                if(EnemyHealthPotions > 0){
+                                Enemyhealth = Health2 + 30;
+                                document.getElementById("enemy").innerHTML=Enemyhealth;
+                                alert("Enemy Has Used a Health Potion!");
+                                Health2 = Enemyhealth;
+                                EnemyHealthPotions--;
+                                }
+                            }
+                            if (Health2 < 1 ){
+                                document.getElementById("enemy").innerHTML=0;
+                                alert("You Defeated Your Enemy! Congratulations!");
+                            }
+                        }
+                    }
+                    else{
+                        if(Playerturn == 1 ){
+                            var Damage4=(Math.floor(Math.random()*(3 - 2 + 1) ) + 2);
+                            Enemyhealth=Health2 - Damage4;
+                            document.getElementById("enemy").innerHTML=Enemyhealth;
+                            document.getElementById("PlayerBattleDecision").innerHTML=
+                            "Player Chose to Attack and Inflicted " + Damage4 + " Damage";
+                            document.getElementById("EnemyBattleDecision").innerHTML=
+                            "Enemy chose to Block! Inflicted 0 Damage";
+                            Health=Playerhealth;
+                            if (Health < 1){
+                                document.getElementById("player").innerHTML=0;
+                                alert("You Have Been Beaten! Better Luck Next Time!");
+                                }
+                            }
+                            else{
+                                document.getElementById("PlayerBattleDecision").innerHTML=
+                                "Player Chose to Block, No Damage was Inflicted";
+                                document.getElementById("EnemyBattleDecision").innerHTML=
+                                "Enemy Chose to block, No Damage was Inflicted";
+                            }
+                        }
+                    }
+                }
+                else{
+                    alert("The Battle Is Over!")
+                }
+            }
+            function AddHealth(){
+                if(PlayerHealthPotions > 0){ 
+                    if(Health > 70){
+                        var heal = 100 - Health ;
+                        Playerhealth= Health + heal;
+                        document.getElementById("player").innerHTML=Playerhealth;
+                        alert("You Have Used a Health Potion!");
+                        Health = Playerhealth ;
+                        PlayerHealthPotions--;
+                    }
+                    else{
+                        Playerhealth= Health + 30;
+                        document.getElementById("player").innerHTML=Playerhealth;
+                        alert("You Have Used a Health Potion!");
+                        Health = Playerhealth ;
+                        PlayerHealthPotions--;
+                    }
+                }
+                else{
+                    alert("You Have No Healing Potions Left!");
+                }
+            }
+        </script> 
+    </body>
+</html>           
